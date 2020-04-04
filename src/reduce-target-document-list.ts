@@ -41,10 +41,14 @@ function initXmlDocument(reducedTargetDocumentList: ReducedTargetDocumentImpl[],
         .entries(sectionListObject)
         .reduce((xml: string, section: any) => {
             const links = section[1].qaList.reduce((qaXml: string, slugifiedQaName: string) => {
-                return qaXml + `<link href="${slugifiedQaName}"/>`;
+                return qaXml + `
+            <link href="${slugifiedQaName}"/>`;
             }, '');
 
-            return xml + `<section id="${section[1].slugifiedSectionName}"><title>${section[1].sectionTitle}</title>${links}</section>`;
+            return xml + `
+        <section id="${section[1].slugifiedSectionName}">
+            <title>${section[1].sectionTitle}</title>${links}
+        </section>`;
         }, '');
 
     return addXmlQa(reducedTargetDocumentList, targetDocumentToReduceCurrent);
@@ -96,7 +100,8 @@ function finalizeXmlDocument(reducedTargetDocumentList: ReducedTargetDocumentImp
     <!-- Sommaire de la FAQ -->
     <!-- licence de reproduction affiché en bas de l'article -->
     <licence>${fmMetaData.licence}</licence>
-    <summary>${reducedTargetDocumentList[0].xmlSectionList}</summary>
+    <summary>${reducedTargetDocumentList[0].xmlSectionList}
+    </summary>
     <!-- Liste des questions de la FAQ -->
     <QAs>${reducedTargetDocumentList[0].xmlQaList}</QAs>
 </document>
