@@ -38,7 +38,32 @@
     <!-- Sommaire de la FAQ -->
     <!-- licence de reproduction affiché en bas de l'article -->
     <licence>CC-BY-SA-4.0</licence>
-    <summary><section id="generalites"><title>Généralités</title><link href="qu-est-ce-que-git"/><link href="que-signifie-git"/><link href="ou-trouver-de-la-documentation-pour-git"/></section><section id="installation-et-configuration"><title>Installation et configuration</title><link href="comment-installer-git-sur-windows"/><link href="comment-installer-git-sur-macos"/><link href="comment-installer-git-sur-linux"/></section><section id="initialisation-d-un-depot"><title>Initialisation d’un dépôt</title><link href="comment-initialiser-un-depot"/><link href="comment-initialiser-un-depot-nu-bare-repository"/><link href="comment-cloner-un-depot"/></section><section id="les-depots-distants-remotes"><title>Les dépôts distants (<i>remotes</i>)</title><link href="comment-lister-les-depots-distants-d-un-depot"/><link href="comment-ajouter-un-depot-distant"/><link href="comment-inspecter-un-depot-distant"/></section></summary>
+    <summary>
+        <section id="generalites">
+            <title>Généralités</title>
+            <link href="qu-est-ce-que-git"/>
+            <link href="que-signifie-git"/>
+            <link href="ou-trouver-de-la-documentation-pour-git"/>
+        </section>
+        <section id="installation-et-configuration">
+            <title>Installation et configuration</title>
+            <link href="comment-installer-git-sur-windows"/>
+            <link href="comment-installer-git-sur-macos"/>
+            <link href="comment-installer-git-sur-linux"/>
+        </section>
+        <section id="initialisation-d-un-depot">
+            <title>Initialisation d’un dépôt</title>
+            <link href="comment-initialiser-un-depot"/>
+            <link href="comment-initialiser-un-depot-nu-bare-repository"/>
+            <link href="comment-cloner-un-depot"/>
+        </section>
+        <section id="les-depots-distants-remotes">
+            <title>Les dépôts distants (<i>remotes</i>)</title>
+            <link href="comment-lister-les-depots-distants-d-un-depot"/>
+            <link href="comment-ajouter-un-depot-distant"/>
+            <link href="comment-inspecter-un-depot-distant"/>
+        </section>
+    </summary>
     <!-- Liste des questions de la FAQ -->
     <QAs><QA create_date="2018-11-19" last_update="2018-11-20" name="qu-est-ce-que-git"><question>Qu’est ce que Git ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><paragraph>Git est un système de contrôle de révision décentralisé et rapide.</paragraph><paragraph>Il a été écrit en 2005 à l’initiative de Linus Torvalds pour gérer les sources du kernel Linux.</paragraph></answer></QA><QA create_date="2018-11-19" last_update="2018-11-20" name="que-signifie-git"><question>Que signifie Git ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><paragraph>Il n’y a pas de réponses précises, on ne sait pas s’il s’agit d’un acronyme ou d’un mot. Le nom date de la toute première livraison du projet.<br />Le fichier <link href="https://github.com/git/git/blob/master/README.md">README du projet</link> contient quelques explications.<br />En argot britannique il s’agit également d’une insulte.</paragraph></answer></QA><QA create_date="2018-11-19" last_update="2018-11-20" name="ou-trouver-de-la-documentation-pour-git"><question>Où trouver de la documentation pour Git ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><paragraph>Le site officiel est disponible à l’adresse <link href="https://git-scm.com/">https://git-scm.com/</link>. La documentation est hébergée <link href="https://git-scm.com/doc">au même endroit</link>.</paragraph></answer></QA><QA create_date="2018-11-19" last_update="2018-11-20" name="comment-installer-git-sur-windows"><question>Comment installer Git sur Windows ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><paragraph>Téléchargez le client Git approprié depuis <link href="https://git-scm.com/downloads">la page officielle</link>, lancez l’installeur et suivez les instructions.</paragraph></answer></QA><QA create_date="2018-11-19" last_update="2018-11-20" name="comment-installer-git-sur-macos"><question>Comment installer Git sur macOS ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><paragraph>Il existe plusieurs façons d’installer Git sous macOS.</paragraph><liste><element>La première façon consiste à installer XCode qui inclut Git (Apple Git-xy). Depuis un terminal, saisir la ligne de commande =&gt; <inline>xcode-select --install</inline>.</element><element>La deuxième façon consiste à utiliser <link href="https://sourceforge.net/projects/git-osx-installer/">Git-osx-install</link>. Téléchargez le fichier .dmg et lancez l’installation en suivant les instructions.</element><element>La troisième façon consiste à utiliser <link href="https://brew.sh/index_fr">Homebrew</link>. En supposant que <link href="https://brew.sh/index_fr">Homebrew</link> soit installé, depuis un terminal saisir la ligne de commande =&gt; <inline>brew install git</inline>.</element></liste></answer></QA><QA create_date="2018-11-19" last_update="2018-11-20" name="comment-installer-git-sur-linux"><question>Comment installer Git sur Linux ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><paragraph>Pour la majorité des distributions, Git sera disponible au travers du gestionnaire de paquets.<br />Par exemple, pour Debian, vous pouvez l’installer ainsi :</paragraph><code langage="bash" showLines="1"><![CDATA[apt-get install git]]></code></answer></QA><QA create_date="2018-11-19" last_update="2018-11-20" name="comment-initialiser-un-depot"><question>Comment initialiser un dépôt ?</question><author name="marco46"/><keywords>lnk, raccourci, fichier</keywords><answer><code langage="bash" showLines="1"><![CDATA[$ cd /home/user/dev/projet-toto
 $ git init
