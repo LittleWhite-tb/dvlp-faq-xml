@@ -41,6 +41,8 @@ export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnC
                 const sectionPathName: string = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
                 const sectionTitle: string = parseWithMarked(mdParsedDocumentImpl.sectionTitleToken);
 
+                const authors: string = qaFmMetaData.author.split(',').map((author) => `<author name="${author}"/>`).join('\n            ');
+
                 const slugifiedQaName: string = getSlug(
                     qaTitleText
                         .replace('<i>', '')
@@ -54,7 +56,7 @@ export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnC
                 const transformedData: string = `
         <QA create_date="${qaFmMetaData.getCreateDate()}" last_update="${qaFmMetaData.getLastUpdateDate()}" name="${slugifiedQaName}">
             ${qaTitleTag}
-            <author name="${qaFmMetaData.author}"/>
+            ${authors}
             <keywords>${qaFmMetaData.keywords}</keywords>
             <answer>
                 ${qaContent}
