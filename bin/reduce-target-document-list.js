@@ -63,12 +63,20 @@ function initXmlDocument(reducedTargetDocumentList, targetDocumentToReduceCurren
             }
         }
     });
+    let indent = '        ';
     const sectionReducer = (xml, section) => {
         const links = section[1].qaList.reduce((qaXml, slugifiedQaName) => {
-            return qaXml + `<link href="${slugifiedQaName}"/>`;
+            return qaXml + `
+    ${indent}<link href="${slugifiedQaName}"/>`;
         }, '');
+        indent += '    ';
         const subXML = Object.entries(section[1].subSections).reduce(sectionReducer, '');
-        return xml + `<section id="${section[1].slugifiedSectionName}"><title>${section[1].sectionTitle}</title>${links}${subXML}</section>`;
+        indent = indent.slice(0, -4);
+        const sectionXml = xml + `
+${indent}<section id="${section[1].slugifiedSectionName}">
+    ${indent}<title>${section[1].sectionTitle}</title>${links}${subXML}
+${indent}</section>`;
+        return sectionXml;
     };
     reducedTargetDocumentList[0].xmlSectionList = Object.entries(sectionHierarchy).reduce(sectionReducer, '');
     return addXmlQa(reducedTargetDocumentList, targetDocumentToReduceCurrent);
@@ -117,7 +125,8 @@ function finalizeXmlDocument(reducedTargetDocumentList, targetDocumentToReduce) 
     <!-- Sommaire de la FAQ -->
     <!-- licence de reproduction affiché en bas de l'article -->
     <licence>${fmMetaData.licence}</licence>
-    <summary>${reducedTargetDocumentList[0].xmlSectionList}</summary>
+    <summary>${reducedTargetDocumentList[0].xmlSectionList}
+    </summary>
     <!-- Liste des questions de la FAQ -->
     <QAs>${reducedTargetDocumentList[0].xmlQaList}</QAs>
 </document>
