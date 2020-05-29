@@ -14,7 +14,10 @@ function codeFn(code: string, language: string): string {
 }
 
 function blockquoteFn(quote: string): string {
-    return `<citation>${quote}</citation>`;
+    let text: string = quote;
+    text = text.replace('<paragraph>', '');
+    text = text.replace('</paragraph>', '');
+    return `<citation>${text}</citation>`;
 }
 
 function htmlFn(html: string): string {

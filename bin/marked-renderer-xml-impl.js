@@ -9,7 +9,10 @@ function codeFn(code, language) {
     }
 }
 function blockquoteFn(quote) {
-    return `<citation>${quote}</citation>`;
+    let text = quote;
+    text = text.replace('<paragraph>', '');
+    text = text.replace('</paragraph>', '');
+    return `<citation>${text}</citation>`;
 }
 function htmlFn(html) {
     return html;
