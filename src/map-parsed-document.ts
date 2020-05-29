@@ -51,7 +51,15 @@ export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnC
                         .replace('<i>', '')
                         .replace('</i>', ''),
                     { lang: 'fr' });
-                const transformedData: string = `<QA create_date="${qaFmMetaData.getCreateDate()}" last_update="${qaFmMetaData.getLastUpdateDate()}" name="${slugifiedQaName}">${qaTitleTag}<author name="${qaFmMetaData.author}"/><keywords>${qaFmMetaData.keywords}</keywords><answer>${qaContent}</answer></QA>`;
+                const transformedData: string = `
+        <QA create_date="${qaFmMetaData.getCreateDate()}" last_update="${qaFmMetaData.getLastUpdateDate()}" name="${slugifiedQaName}">
+            ${qaTitleTag}
+            <author name="${qaFmMetaData.author}"/>
+            <keywords>${qaFmMetaData.keywords}</keywords>
+            <answer>
+                ${qaContent}
+            </answer>
+        </QA>`;
 
                 return TargetDocumentImpl.createTargetDocumentImpl(
                     TargetDocument.createTargetDocument({

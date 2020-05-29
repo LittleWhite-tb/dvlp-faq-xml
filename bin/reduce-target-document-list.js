@@ -128,7 +128,8 @@ function finalizeXmlDocument(reducedTargetDocumentList, targetDocumentToReduce) 
     <summary>${reducedTargetDocumentList[0].xmlSectionList}
     </summary>
     <!-- Liste des questions de la FAQ -->
-    <QAs>${reducedTargetDocumentList[0].xmlQaList}</QAs>
+    <QAs>${reducedTargetDocumentList[0].xmlQaList}
+    </QAs>
 </document>
 `;
     return reducedTargetDocumentList;

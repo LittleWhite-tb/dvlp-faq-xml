@@ -36,7 +36,15 @@ function makeUnConfiguredMapParsedDocument({ marked, getSlug }) {
                 const slugifiedSectionName = getSlug(sectionTitle
                     .replace('<i>', '')
                     .replace('</i>', ''), { lang: 'fr' });
-                const transformedData = `<QA create_date="${qaFmMetaData.getCreateDate()}" last_update="${qaFmMetaData.getLastUpdateDate()}" name="${slugifiedQaName}">${qaTitleTag}<author name="${qaFmMetaData.author}"/><keywords>${qaFmMetaData.keywords}</keywords><answer>${qaContent}</answer></QA>`;
+                const transformedData = `
+        <QA create_date="${qaFmMetaData.getCreateDate()}" last_update="${qaFmMetaData.getLastUpdateDate()}" name="${slugifiedQaName}">
+            ${qaTitleTag}
+            <author name="${qaFmMetaData.author}"/>
+            <keywords>${qaFmMetaData.keywords}</keywords>
+            <answer>
+                ${qaContent}
+            </answer>
+        </QA>`;
                 return model_impl_1.TargetDocumentImpl.createTargetDocumentImpl(md_file_converter_1.TargetDocument.createTargetDocument({
                     documentPaths: mdParsedDocumentImpl.documentPaths,
                     transformedData,
