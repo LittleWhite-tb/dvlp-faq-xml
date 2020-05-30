@@ -30,7 +30,24 @@
         <nomfaq>FAQGIT</nomfaq>
     </entete>
     <!-- description des auteurs -->
-    <authorDescriptions><authorDescription name="marco46" role="auteur"><fullname>Marc Loupias</fullname><url>https://www.developpez.net/forums/u70899/marco46/</url></authorDescription><authorDescription name="littlewhite" role="correcteur"><fullname>Little White</fullname><url>https://www.developpez.net/forums/u240267/littlewhite/</url></authorDescription><authorDescription name="mickael-baron" role="correcteur"><fullname>Mickael Baron</fullname><url>https://www.developpez.net/forums/u69211/mickael-baron/</url></authorDescription><authorDescription name="songbird" role="correcteur"><fullname>Songbird</fullname><url>https://www.developpez.net/forums/u897329/songbird/</url></authorDescription></authorDescriptions>
+    <authorDescriptions>
+        <authorDescription name="marco46" role="auteur">
+            <fullname>Marc Loupias</fullname>
+            <url>https://www.developpez.net/forums/u70899/marco46/</url>
+        </authorDescription>
+        <authorDescription name="littlewhite" role="correcteur">
+            <fullname>Little White</fullname>
+            <url>https://www.developpez.net/forums/u240267/littlewhite/</url>
+        </authorDescription>
+        <authorDescription name="mickael-baron" role="correcteur">
+            <fullname>Mickael Baron</fullname>
+            <url>https://www.developpez.net/forums/u69211/mickael-baron/</url>
+        </authorDescription>
+        <authorDescription name="songbird" role="correcteur">
+            <fullname>Songbird</fullname>
+            <url>https://www.developpez.net/forums/u897329/songbird/</url>
+        </authorDescription>
+    </authorDescriptions>
     <!-- Edito de la FAQ, il faut la placer dans des balises paragraph -->
     <edito>
         <paragraph>FAQ Git en français pour developpez.com</paragraph>
