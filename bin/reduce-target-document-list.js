@@ -15,7 +15,11 @@ class SectionListObject {
 function initXmlDocument(reducedTargetDocumentList, targetDocumentToReduceCurrent, index, targetDocumentToReduceList) {
     const summaryFmMetaData = reducedTargetDocumentList[0].fmMetaData;
     reducedTargetDocumentList[0].xmlAuthorList = summaryFmMetaData.getAuteurs().reduce((xml, auteur) => {
-        return xml + `<authorDescription name="${auteur.name}" role="${auteur.role}"><fullname>${auteur.fullname}</fullname><url>${auteur.url}</url></authorDescription>`;
+        return xml + `
+        <authorDescription name="${auteur.name}" role="${auteur.role}">
+            <fullname>${auteur.fullname}</fullname>
+            <url>${auteur.url}</url>
+        </authorDescription>`;
     }, '');
     const sectionListObject = targetDocumentToReduceList
         .reduce((sections, qa) => {
@@ -117,7 +121,8 @@ function finalizeXmlDocument(reducedTargetDocumentList, targetDocumentToReduce) 
         <nomfaq>${fmMetaData.getEntete().nomfaq}</nomfaq>
     </entete>
     <!-- description des auteurs -->
-    <authorDescriptions>${reducedTargetDocumentList[0].xmlAuthorList}</authorDescriptions>
+    <authorDescriptions>${reducedTargetDocumentList[0].xmlAuthorList}
+    </authorDescriptions>
     <!-- Edito de la FAQ, il faut la placer dans des balises paragraph -->
     <edito>
         <paragraph>${fmMetaData.edito}</paragraph>
