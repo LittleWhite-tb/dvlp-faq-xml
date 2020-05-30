@@ -5,10 +5,20 @@ import { FmSummary, FmQa } from 'dvlp-commons';
 import { MdParsedDocumentImpl } from './model-impl';
 import { Token, TokensList } from 'marked';
 
+let currentSectionName: TokensList;
+
+/**
+ * Each section has a 000.title.md file used to define the section name/title
+ * It is a 000.* file to be treated first. It is just used to get the section title for the next QA
+ * until we reach the next section (where we will find a new title file).
+ *
+ * Although, the title file is not returning any document (since it contains nothing interesting)
+ * Thus the rest of the process chain will have to handle the possibility to have undefined document
+ */
 export function parseLexeredDocument(mdLexeredDocument: MdLexeredDocument): IMdParsedDocument {
     function getQuestionTitleToken(tokens: TokensList): Token[] {
         for (const token of tokens) {
-            if (token.type === 'heading' && token.depth === 3) {
+            if (token.type === 'heading' && token.depth === 2) {
                 return [token];
             }
         }
@@ -16,7 +26,7 @@ export function parseLexeredDocument(mdLexeredDocument: MdLexeredDocument): IMdP
 
     function getSectionTitleToken(tokens: TokensList): Token[] {
         for (const token of tokens) {
-            if (token.type === 'heading' && token.depth === 2) {
+            if (token.type === 'heading' && token.depth === 1) {
                 return [token];
             }
         }
@@ -32,7 +42,9 @@ export function parseLexeredDocument(mdLexeredDocument: MdLexeredDocument): IMdP
             parsedTokensList: mdLexeredDocument.tokensList,
             fmMetaData: new FmSummary(mdLexeredDocument.fmMetaData)
         });
-
+    } else if (mdLexeredDocument.documentPaths.basename === '000.title') {
+        currentSectionName = getSectionTitleToken(mdLexeredDocument.tokensList) as TokensList;
+        return undefined;
     } else {
         return MdParsedDocumentImpl.createMdParsedDocumentImpl(
             MdParsedDocument.createMdParsedDocument({
@@ -41,7 +53,7 @@ export function parseLexeredDocument(mdLexeredDocument: MdLexeredDocument): IMdP
                 fmMetaData: new FmQa(mdLexeredDocument.fmMetaData)
             }),
             getQuestionTitleToken(mdLexeredDocument.tokensList) as TokensList,
-            getSectionTitleToken(mdLexeredDocument.tokensList) as TokensList
+            currentSectionName
         );
     }
 }

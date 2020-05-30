@@ -25,9 +25,9 @@ function htmlFn(html: string): string {
 }
 
 function headingFn(text: string, level: number): string {
-    if (level === 2) {
+    if (level === 1) {
         return text;
-    } else if (level === 3) {
+    } else if (level === 2) {
         return `<question>${text}</question>`;
     } else {
         return '';

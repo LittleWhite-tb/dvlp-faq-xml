@@ -14,6 +14,9 @@ function makeUnConfiguredMapParsedDocument({ marked, getSlug }) {
                 const previousLastFolderSep = path.lastIndexOf('/', lastFolderSep - 1);
                 return path.substring(previousLastFolderSep + 1, lastFolderSep);
             }
+            if (mdParsedDocument === undefined) {
+                return undefined;
+            }
             if (mdParsedDocument.documentPaths.basename === 'SUMMARY') {
                 return md_file_converter_1.TargetDocument.createTargetDocument({
                     documentPaths: mdParsedDocument.documentPaths,
@@ -29,7 +32,8 @@ function makeUnConfiguredMapParsedDocument({ marked, getSlug }) {
                 const qaTitleText = questionTitleToken.text;
                 const qaTitleTag = parseWithMarked(mdParsedDocumentImpl.questionTitleToken);
                 const sectionPathName = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
-                const sectionTitle = parseWithMarked(mdParsedDocumentImpl.sectionTitleToken);
+                const copySectionTitleToken = Object.create(mdParsedDocumentImpl.sectionTitleToken);
+                const sectionTitle = parseWithMarked(copySectionTitleToken);
                 const authors = qaFmMetaData.author.split(', ').map((author) => `<author name="${author}"/>`).join('\n            ');
                 const slugifiedQaName = getSlug(qaTitleText
                     .replace('<i>', '')

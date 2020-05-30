@@ -18,10 +18,10 @@ function htmlFn(html) {
     return html;
 }
 function headingFn(text, level) {
-    if (level === 2) {
+    if (level === 1) {
         return text;
     }
-    else if (level === 3) {
+    else if (level === 2) {
         return `<question>${text}</question>`;
     }
     else {

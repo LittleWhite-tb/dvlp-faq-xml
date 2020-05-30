@@ -5,7 +5,7 @@ import {
 } from 'md-file-converter';
 import { FmQa } from 'dvlp-commons';
 import { MdParsedDocumentImpl, TargetDocumentImpl } from './model-impl';
-import { MarkedOptions, Tokens } from 'marked';
+import { MarkedOptions, Tokens, TokensList } from 'marked';
 
 export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnConfiguredMapParsedDocumentFnType {
     return (conf: { markedOptions: MarkedOptions }): MapParsedDocumentFnType => {
@@ -21,6 +21,10 @@ export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnC
                 const lastFolderSep = path.lastIndexOf('/');
                 const previousLastFolderSep = path.lastIndexOf('/', lastFolderSep - 1);
                 return path.substring(previousLastFolderSep + 1, lastFolderSep);
+            }
+
+            if (mdParsedDocument === undefined) {
+                return undefined;
             }
 
             if (mdParsedDocument.documentPaths.basename === 'SUMMARY') {
@@ -39,7 +43,9 @@ export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnC
                 const qaTitleText: string = questionTitleToken.text;
                 const qaTitleTag: string = parseWithMarked(mdParsedDocumentImpl.questionTitleToken);
                 const sectionPathName: string = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
-                const sectionTitle: string = parseWithMarked(mdParsedDocumentImpl.sectionTitleToken);
+                // Object is shared between document and parseWithMarked does empty the token array, thus let's copy it
+                const copySectionTitleToken: TokensList = Object.create(mdParsedDocumentImpl.sectionTitleToken) as TokensList;
+                const sectionTitle: string = parseWithMarked(copySectionTitleToken);
 
                 const authors: string = qaFmMetaData.author.split(', ').map((author) => `<author name="${author}"/>`).join('\n            ');
 
