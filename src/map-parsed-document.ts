@@ -33,32 +33,44 @@ export function makeUnConfiguredMapParsedDocument({ marked, getSlug }: any): UnC
                     transformedData: marked.parser(mdParsedDocument.parsedTokensList, conf.markedOptions),
                     fmMetaData: mdParsedDocument.fmMetaData
                 });
-
             } else {
                 const mdParsedDocumentImpl: MdParsedDocumentImpl = mdParsedDocument as MdParsedDocumentImpl;
+
+                const sectionPathName: string = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
+                // Object is shared between document and parseWithMarked does empty the token array, thus let's copy it
+                const copySectionTitleToken: TokensList = Object.create(mdParsedDocumentImpl.sectionTitleToken) as TokensList;
+                const sectionTitle: string = parseWithMarked(copySectionTitleToken);
+                const slugifiedSectionName: string = getSlug(
+                    sectionTitle
+                        .replace('<i>', '')
+                        .replace('</i>', ''),
+                    { lang: 'fr' });
+                // In case of section title, we are returning a simplified document
+                if (mdParsedDocument.documentPaths.basename === '000.title') {
+                    return TargetDocumentImpl.createSectionDocumentImpl(
+                        TargetDocument.createTargetDocument({
+                            documentPaths: mdParsedDocument.documentPaths,
+                            transformedData: '',
+                            fmMetaData: undefined
+                        }),
+                        sectionPathName,
+                        slugifiedSectionName,
+                        sectionTitle
+                    );
+                }
+
                 const qaFmMetaData: FmQa = mdParsedDocumentImpl.fmMetaData as FmQa;
                 const questionTitleToken: Tokens.Heading = mdParsedDocumentImpl.questionTitleToken[0] as Tokens.Heading;
 
                 const qaContent: string = parseWithMarked(mdParsedDocumentImpl.parsedTokensList);
                 const qaTitleText: string = questionTitleToken.text;
                 const qaTitleTag: string = parseWithMarked(mdParsedDocumentImpl.questionTitleToken);
-                const sectionPathName: string = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
-                // Object is shared between document and parseWithMarked does empty the token array, thus let's copy it
-                const copySectionTitleToken: TokensList = Object.create(mdParsedDocumentImpl.sectionTitleToken) as TokensList;
-                const sectionTitle: string = parseWithMarked(copySectionTitleToken);
-
                 const authors: string = qaFmMetaData.author.split(', ').map((author) => `<author name="${author}"/>`).join('\n            ');
-
                 const slugifiedQaName: string = getSlug(
-                    qaTitleText
-                        .replace('<i>', '')
-                        .replace('</i>', ''),
-                    { lang: 'fr' });
-                const slugifiedSectionName: string = getSlug(
-                    sectionTitle
-                        .replace('<i>', '')
-                        .replace('</i>', ''),
-                    { lang: 'fr' });
+                        qaTitleText
+                            .replace('<i>', '')
+                            .replace('</i>', ''),
+                        { lang: 'fr' });
                 const transformedData: string = `
         <QA create_date="${qaFmMetaData.getCreateDate()}" last_update="${qaFmMetaData.getLastUpdateDate()}" name="${slugifiedQaName}">
             ${qaTitleTag}

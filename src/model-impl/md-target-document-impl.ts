@@ -6,6 +6,9 @@ export class TargetDocumentImpl implements ITargetDocument {
     public static createTargetDocumentImpl(targetDocument: ITargetDocument, slugifiedQaName: string, sectionPathName: string, slugifiedSectionName: string, sectionTitle: string): TargetDocumentImpl {
         return new TargetDocumentImpl(targetDocument, slugifiedQaName, sectionPathName, slugifiedSectionName, sectionTitle);
     }
+    public static createSectionDocumentImpl(targetDocument: ITargetDocument, sectionPathName: string, slugifiedSectionName: string, sectionTitle: string): TargetDocumentImpl {
+        return new TargetDocumentImpl(targetDocument, undefined, sectionPathName, slugifiedSectionName, sectionTitle);
+    }
 
     public documentPaths: IDocumentPaths;
     public transformedData: string;

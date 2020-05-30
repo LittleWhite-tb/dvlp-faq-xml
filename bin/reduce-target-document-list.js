@@ -69,7 +69,7 @@ function initXmlDocument(reducedTargetDocumentList, targetDocumentToReduceCurren
     });
     let indent = '        ';
     const sectionReducer = (xml, section) => {
-        const links = section[1].qaList.reduce((qaXml, slugifiedQaName) => {
+        const links = section[1].qaList.filter((qa) => qa !== undefined).reduce((qaXml, slugifiedQaName) => {
             return qaXml + `
     ${indent}<link href="${slugifiedQaName}"/>`;
         }, '');

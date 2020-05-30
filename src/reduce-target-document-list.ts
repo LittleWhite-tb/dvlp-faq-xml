@@ -92,7 +92,7 @@ function initXmlDocument(reducedTargetDocumentList: ReducedTargetDocumentImpl[],
     // Produce the XML code for section (and subsection thanks to recursivity)
     let indent = '        ';
     const sectionReducer = (xml: string, section: any): string => {
-        const links = section[1].qaList.reduce((qaXml: string, slugifiedQaName: string) => {
+        const links = section[1].qaList.filter((qa: any) => qa !== undefined).reduce((qaXml: string, slugifiedQaName: string) => {
             return qaXml + `
     ${indent}<link href="${slugifiedQaName}"/>`;
         }, '');

@@ -31,7 +31,11 @@ function parseLexeredDocument(mdLexeredDocument) {
     }
     else if (mdLexeredDocument.documentPaths.basename === '000.title') {
         currentSectionName = getSectionTitleToken(mdLexeredDocument.tokensList);
-        return undefined;
+        return model_impl_1.MdParsedDocumentImpl.createMdParsedDocumentImpl(md_file_converter_1.MdParsedDocument.createMdParsedDocument({
+            documentPaths: mdLexeredDocument.documentPaths,
+            parsedTokensList: mdLexeredDocument.tokensList.filter(filterIrrelevantTitlesTokens),
+            fmMetaData: undefined
+        }), undefined, currentSectionName);
     }
     else {
         return model_impl_1.MdParsedDocumentImpl.createMdParsedDocumentImpl(md_file_converter_1.MdParsedDocument.createMdParsedDocument({

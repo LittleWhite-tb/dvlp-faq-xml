@@ -26,19 +26,26 @@ function makeUnConfiguredMapParsedDocument({ marked, getSlug }) {
             }
             else {
                 const mdParsedDocumentImpl = mdParsedDocument;
+                const sectionPathName = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
+                const copySectionTitleToken = Object.create(mdParsedDocumentImpl.sectionTitleToken);
+                const sectionTitle = parseWithMarked(copySectionTitleToken);
+                const slugifiedSectionName = getSlug(sectionTitle
+                    .replace('<i>', '')
+                    .replace('</i>', ''), { lang: 'fr' });
+                if (mdParsedDocument.documentPaths.basename === '000.title') {
+                    return model_impl_1.TargetDocumentImpl.createSectionDocumentImpl(md_file_converter_1.TargetDocument.createTargetDocument({
+                        documentPaths: mdParsedDocument.documentPaths,
+                        transformedData: '',
+                        fmMetaData: undefined
+                    }), sectionPathName, slugifiedSectionName, sectionTitle);
+                }
                 const qaFmMetaData = mdParsedDocumentImpl.fmMetaData;
                 const questionTitleToken = mdParsedDocumentImpl.questionTitleToken[0];
                 const qaContent = parseWithMarked(mdParsedDocumentImpl.parsedTokensList);
                 const qaTitleText = questionTitleToken.text;
                 const qaTitleTag = parseWithMarked(mdParsedDocumentImpl.questionTitleToken);
-                const sectionPathName = getLastFolderFromPath(mdParsedDocument.documentPaths.src);
-                const copySectionTitleToken = Object.create(mdParsedDocumentImpl.sectionTitleToken);
-                const sectionTitle = parseWithMarked(copySectionTitleToken);
                 const authors = qaFmMetaData.author.split(', ').map((author) => `<author name="${author}"/>`).join('\n            ');
                 const slugifiedQaName = getSlug(qaTitleText
-                    .replace('<i>', '')
-                    .replace('</i>', ''), { lang: 'fr' });
-                const slugifiedSectionName = getSlug(sectionTitle
                     .replace('<i>', '')
                     .replace('</i>', ''), { lang: 'fr' });
                 const transformedData = `

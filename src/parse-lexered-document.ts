@@ -44,7 +44,15 @@ export function parseLexeredDocument(mdLexeredDocument: MdLexeredDocument): IMdP
         });
     } else if (mdLexeredDocument.documentPaths.basename === '000.title') {
         currentSectionName = getSectionTitleToken(mdLexeredDocument.tokensList) as TokensList;
-        return undefined;
+        return MdParsedDocumentImpl.createMdParsedDocumentImpl(
+            MdParsedDocument.createMdParsedDocument({
+                documentPaths: mdLexeredDocument.documentPaths,
+                parsedTokensList: mdLexeredDocument.tokensList.filter(filterIrrelevantTitlesTokens) as TokensList,
+                fmMetaData: undefined
+                        }),
+            undefined,
+            currentSectionName
+        );
     } else {
         return MdParsedDocumentImpl.createMdParsedDocumentImpl(
             MdParsedDocument.createMdParsedDocument({
