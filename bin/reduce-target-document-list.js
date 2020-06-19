@@ -114,11 +114,11 @@ function finalizeXmlDocument(reducedTargetDocumentList, targetDocumentToReduce) 
         <serveur>${fmMetaData.getEntete().serveur}</serveur>
         <chemin>${fmMetaData.getEntete().chemin}</chemin>
         <urlhttp>${fmMetaData.getEntete().urlhttp}</urlhttp>
-        <nopdf/>
-        <nozip/>
-        <nodownload/>
-        <noebook/>
         <nomfaq>${fmMetaData.getEntete().nomfaq}</nomfaq>
+        <pdf>
+            <sautDePageAvantSection>0</sautDePageAvantSection>
+            <notesBasPage>FinDocument</notesBasPage>
+        </pdf>
     </entete>
     <!-- description des auteurs -->
     <authorDescriptions>${reducedTargetDocumentList[0].xmlAuthorList}
